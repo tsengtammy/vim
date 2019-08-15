@@ -8,6 +8,11 @@ filetype plugin indent on
 set tabstop=4 shiftwidth=4 expandtab
 set encoding=utf-8
 
+" incremental and case insensitive search
+set incsearch
+set ignorecase
+
+
 inoremap jk <ESC>
 let mapleader = " "
 
