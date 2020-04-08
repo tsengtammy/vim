@@ -1,18 +1,163 @@
-
-" Configuration
-
-colorscheme desert
-syntax on
-
-filetype plugin indent on
-set tabstop=4 shiftwidth=4 expandtab
-set encoding=utf-8
-
-" incremental and case insensitive search
+"----------------------------------------------------
+" General
+"----------------------------------------------------
+set nocompatible
+set mouse=a
+set clipboard=unnamedplus
+set history=1729
+set ruler
+set number
+set showcmd
+set hlsearch
+set showmatch
 set incsearch
+set backspace=indent,eol,start
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set laststatus=2
+set expandtab
+set smarttab
+set autoindent
+
+set encoding=utf-8
 set ignorecase
 
+set splitbelow
+set splitright
+set cursorline
+set cursorcolumn
 
-inoremap jk <ESC>
-let mapleader = " "
+"----------------------------------------------------
+" Mappings for Plugins and Vim
+"----------------------------------------------------
+iab mechdata rlopez afrancis jwilcox adeveau
+" make code look pretty
+let python_highlight_all=1
+syntax on
+" map fzf leader to semicolon
+map ; :Files<CR>
+" open fzf most recently opened files
+map <leader><leader>h :History<CR>
+" maps go to declaration
+nnoremap <C-X> :YcmCompleter GoToDeclaration<CR>
+set completeopt-=preview
+" map the set paste / no paste command
+set pastetoggle=<leader>p
+" map highlight off
+map <leader>h :noh<CR>
+" map Space to save buffer
+map <Space> :w<CR>
+" make copy-paste nice
+function! ToggleMouse()
+    if &mouse == 'a'
+        set mouse=r
+        set nonu
+    else
+        set mouse=a
+        set nu
+    endif
+endfunction
+nnoremap <leader>y :call ToggleMouse()<CR>
+" vim tabs
+nnoremap gr gT
+nnoremap <C-t> :tabe<CR>
+nnoremap <C-w> :tabclose<CR>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+" vim splits
+nnoremap hh <C-w>h
+nnoremap jj <C-w>j
+nnoremap kk <C-w>k
+nnoremap ll <C-w>l
+" exit insert mode with 
+ inoremap jk <ESC>
+
+" set d to black_hole delete, not cut
+nnoremap d "_d
+vnoremap d "_d
+let mapleader = "\\"
+"----------------------------------------------------
+" Mappings for Quora-specific files
+"----------------------------------------------------
+" Notifications
+nmap <leader>cni :e ~/ans/web/lib/a/controller/notif/__init__.py<CR>
+"----------------------------------------------------
+" Plugins using Vundle
+"----------------------------------------------------
+" required
+filetype off
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" fuzzy search within vim
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+
+" commenting in vim
+Plugin 'tomtom/tcomment_vim'
+
+" lean status and tabline for vim
+Plugin 'vim-airline/vim-airline'
+
+" highlights all whitespace
+Plugin 'ntpeters/vim-better-whitespace'
+
+" solarized theme for vim
+Plugin 'altercation/vim-colors-solarized'
+
+" moving to any word in the file easily
+" NOT WORKING ATM
+Plugin 'easymotion/vim-easymotion'
+
+" wrapper around git
+Plugin 'tpope/vim-fugitive'
+
+" javascript syntax and indentation support for vim
+Plugin 'pangloss/vim-javascript'
+
+" jsx syntax highlighting support for vim
+Plugin 'peitalin/vim-jsx-typescript'
+
+Plugin 'leafgarland/typescript-vim'
+
+" code completion for vim
+Plugin 'valloric/youcompleteme'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+"----------------------------------------------------
+" Solarized Theme
+"----------------------------------------------------
+syntax enable
+set background=dark
+let g:solarized_termcolors=256
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+colorscheme solarized
+"----------------------------------------------------
+" End of File
+"----------------------------------------------------
+
+
+
 
