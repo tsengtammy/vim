@@ -115,7 +115,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ntpeters/vim-better-whitespace'
 
 " solarized theme for vim
-Plugin 'altercation/vim-colors-solarized'
+" Plugin 'altercation/vim-colors-solarized'
 
 " moving to any word in the file easily
 " NOT WORKING ATM
@@ -133,7 +133,7 @@ Plugin 'peitalin/vim-jsx-typescript'
 Plugin 'leafgarland/typescript-vim'
 
 " code completion for vim
-Plugin 'valloric/youcompleteme'
+Plugin 'valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -156,7 +156,7 @@ set background=dark
 " let g:solarized_termcolors=256
 " let g:solarized_visibility = "high"
 " let g:solarized_contrast = "high"
-colorscheme solarized
+" colorscheme solarized
 "----------------------------------------------------
 " End of File
 "----------------------------------------------------
