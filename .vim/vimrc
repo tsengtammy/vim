@@ -3,7 +3,7 @@
 "----------------------------------------------------
 set nocompatible
 set mouse=a
-set clipboard=unnamedplus
+set clipboard=unnamed
 set history=1729
 set ruler
 set number
@@ -28,6 +28,8 @@ set splitright
 set cursorline
 set cursorcolumn
 
+" automatically source vimrc on write
+autocmd! bufwritepost .vimrc source %
 "----------------------------------------------------
 " Mappings for Plugins and Vim
 "----------------------------------------------------
@@ -36,12 +38,14 @@ iab mechdata rlopez afrancis jwilcox adeveau
 let python_highlight_all=1
 syntax on
 " map fzf leader to semicolon
-map ; :Files<CR>
+map ; :GFiles<CR>
 " open fzf most recently opened files
 map <leader><leader>h :History<CR>
 " maps go to declaration
 nnoremap <C-X> :YcmCompleter GoToDeclaration<CR>
 set completeopt-=preview
+" apply YCM FixIt
+nnoremap <C-F> :YcmCompleter FixIt<CR>
 " map the set paste / no paste command
 set pastetoggle=<leader>p
 " map highlight off
@@ -72,32 +76,50 @@ nnoremap hh <C-w>h
 nnoremap jj <C-w>j
 nnoremap kk <C-w>k
 nnoremap ll <C-w>l
-" exit insert mode with 
+" exit insert mode with
  inoremap jk <ESC>
-
+"Remove all trailing whitespace by pressing F5
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 " set d to black_hole delete, not cut
 nnoremap d "_d
 vnoremap d "_d
 let mapleader = "\\"
+
+" <c-c> bound in insert mode to sql completion,
+" turn it off
+let g:omni_sql_no_default_maps = 1
+
+" see full diagnostic message for diagnostics in location list
+" open and close with :lopen :lclose
+let g:ycm_always_populate_location_list = 1
+
+" diagnostic signs
+let g:ycm_enable_diagnostic_signs = 1
+
+" use :call TrimWhitespace()
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+
 "----------------------------------------------------
 " Mappings for Quora-specific files
 "----------------------------------------------------
 " Notifications
 nmap <leader>cni :e ~/ans/web/lib/a/controller/notif/__init__.py<CR>
 "----------------------------------------------------
-" Plugins using Vundle
+" Plugins using plug.vim
 "----------------------------------------------------
-" required
-filetype off
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
 
 call plug#begin('~/.vim/plugged')
 
 " fuzzy search within vim
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+" project drawer in vim
+Plug 'tpope/vim-vinegar'
 
 " class outline viewer in vim
 Plug 'majutsushi/tagbar'
@@ -132,9 +154,11 @@ Plug 'pangloss/vim-javascript'
 " jsx syntax highlighting support for vim
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'leafgarland/typescript-vim'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'jparise/vim-graphql'
 
 " code completion for vim
-Plug 'valloric/youcompleteme', { 'commit':'d98f896' }
+Plug 'ycm-core/youcompleteme'
 
 call plug#end()
 
@@ -151,10 +175,14 @@ call plug#end()
 "----------------------------------------------------
 syntax enable
 set background=dark
-" let g:solarized_termcolors=256
-" let g:solarized_visibility = "high"
-" let g:solarized_contrast = "high"
-" colorscheme solarized
+let g:solarized_termcolors=256
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+colorscheme solarized
+
+" YCM
+" trying to set the color background but not working
+highlight YcmErrorLine guibg=#3f0000
 "----------------------------------------------------
 " End of File
 "----------------------------------------------------
