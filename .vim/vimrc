@@ -63,6 +63,10 @@ function! ToggleMouse()
     endif
 endfunction
 nnoremap <leader>y :call ToggleMouse()<CR>
+" set color at char position
+set colorcolumn=80
+" ruler
+set ruler
 " vim tabs
 nnoremap gr gT
 nnoremap <C-t> :tabe<CR>
